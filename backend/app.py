@@ -7,17 +7,21 @@ import uuid
 from sqlalchemy.orm import Session
 from fastapi import FastAPI, HTTPException, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
-
 import schemas as _schemas
 import services as _services
 
-# from fastapi.middleware.cors import CORSMiddleware
-# from pydantic import BaseModel
+from os import environ as env
+
+from dotenv import load_dotenv
+load_dotenv()
 
 app = FastAPI()
 
-s3_client = boto3.client('s3', region_name='eu-north-1', aws_access_key_id="AKIA3A3742JYNSFBUUYE",
-                         aws_secret_access_key="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")
+aws_access_key = env["aws_access_key"]
+aws_secret_access_key = env["aws_secret_access_key"]
+
+s3_client = boto3.client('s3', region_name='eu-north-1', aws_access_key_id=aws_access_key,
+                         aws_secret_access_key=aws_secret_access_key)
 S3_BUCKET = "kantine-it-system"
 
 origins = [
