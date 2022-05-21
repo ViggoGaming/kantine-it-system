@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+  postgres-database:
+    image: postgres
+    restart: always 
+    environment:
+      POSTGRES_PASSWORD: 'password' 
+    volumes:
+      - './data/pgdata:/var/lib/postgresql/data'
+    ports:
+      - 5432:5432
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'me@victorbuch.dk'
+      PGADMIN_DEFAULT_PASSWORD: 'password'
+    ports:
+      - 9090:80
